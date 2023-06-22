@@ -5,6 +5,7 @@ const submitForm = cityInput.addEventListener("keypress", (e) => {
         let searchValue = cityInput.value.toLowerCase();
         fetchCurrentWeather(searchValue)
             .then ((data) => {renderCurrentData(data)});
+        cityInput.blur();
     }
 });
 
@@ -14,10 +15,16 @@ const fetchCurrentWeather = async function (location) {
 }
 
 const renderCurrentData = (data) => {
-    currentTemp.innerHTML = Math.round(data.main.temp) + '&deg;F'
+    cityInput.value = data.name;
+    currentTemp.innerHTML = Math.round(data.main.temp) + '&deg;F';
+
 }
 
+const cityText = document.getElementById("input");
+cityText.value = 'Tyler';
+console.log(cityText);
 const currentTemp = document.getElementById("currentTemp");
+
 
 
 
