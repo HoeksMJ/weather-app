@@ -1,5 +1,5 @@
 const cityInput = document.getElementById("input");
-
+ 
 const submitForm = cityInput.addEventListener("keypress", (e) => {
     if (e.key === 'Enter'){
         let searchValue = cityInput.value.toLowerCase();
@@ -17,13 +17,19 @@ const fetchCurrentWeather = async function (location) {
 const renderCurrentData = (data) => {
     cityInput.value = data.name;
     currentTemp.innerHTML = Math.round(data.main.temp) + '&deg;F';
+    cloudCondition.innerHTML = data.weather[0].description;
+    currentLow.innerHTML = Math.round(data.main.temp_min) + '&deg;F';
+    currentHigh.innerHTML = Math.round(data.main.temp_max) + '&deg;F';
+    currentRainChance.innerHTML = 'Chance of rain: '
 
 }
 
 const cityText = document.getElementById("input");
-cityText.value = 'Tyler';
-console.log(cityText);
 const currentTemp = document.getElementById("currentTemp");
+const cloudCondition = document.getElementById("weatherText");
+const currentLow = document.getElementById("currentLow");
+const currentHigh = document.getElementById("currentHigh");
+const currentRainChance = document.getElementById("rainChance");
 
 
 
