@@ -1,14 +1,14 @@
 * {
-    border-style: solid;
+    border-style: hidden;
     border-width: 1px;
     border-color: black;
     margin: 10px;
 }
 
 body {
-    background: linear-gradient(45deg, #281d35ef, #3f3b2dec, #383022e1, #7c6e45d7, #d9fffce3);
+    background: linear-gradient(45deg, #281d35ef, #3f392dec, #383022e1, #7c6645d7, #d9fffce3);
 	background-size: 200% 200%;
-	animation: gradient 50s ease infinite;
+	animation: gradient 40s ease infinite;
 	height: 100vh;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -42,6 +42,8 @@ body {
 }
 
 #bodyHeader {
+    margin-top: 30px;
+    margin-bottom: 20px;
     margin-right: -60px;
     font-size: 50px;
     font-weight: bold;
@@ -90,7 +92,7 @@ body {
 }
 
 #mainWeatherIcon {
-    width: 30vmin;
+    width: 25vmin;
 }
 
 .tempDiv {
