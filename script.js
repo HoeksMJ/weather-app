@@ -21,7 +21,6 @@ const submitForm = cityInput.addEventListener("keypress", (e) => {
                 sunset = data.sys.sunset;
                 renderCurrentData(data);
                 renderWeatherIcon(data.weather[0].id, data.dt, sunrise, sunset, mainWeatherIcon);
-                console.log(data);
             });
         fetchFutureWeather(searchValue)
             .then ((data) => {
@@ -29,8 +28,7 @@ const submitForm = cityInput.addEventListener("keypress", (e) => {
                 renderHourlyTemp(data);
                 for (let i = 0; i < 7; i++){
                     renderWeatherIcon(data.list[i].weather[0].id, data.list[i].dt, sunrise, sunset, document.getElementById(`weatherDiv${i}`).children[1]);
-                }
-                console.log(data);
+                };
             });
         cityInput.blur();
     }
