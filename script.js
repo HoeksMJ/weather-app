@@ -21,6 +21,7 @@ const submitForm = cityInput.addEventListener("keypress", (e) => {
         fetchFutureWeather(searchValue)
             .then ((data) => {
                 renderFutureData(data);
+                renderHourlyTemp(data);
                 console.log(data);
             });
         
@@ -35,11 +36,17 @@ const renderCurrentData = (data) => {
     currentLow.innerHTML = Math.round(data.main.temp_min) + '&deg;F';
     currentHigh.innerHTML = Math.round(data.main.temp_max) + '&deg;F';
     currentWindSpeed.innerHTML = Math.round(10*data.wind.speed)/10 + ' mph';
-
 }
 
 const renderFutureData = (data) => {
     
+}
+
+const renderHourlyTemp = (data) => {
+    for (let i = 0; i < 7; i++){
+        let futureHourlyTemp = document.getElementById(`weatherDiv${i}`).children[2];
+        futureHourlyTemp.innerHTML = Math.round(data.list[i].main.temp) + '&deg;F';
+    }
 }
 
 const cityText = document.getElementById("input");
@@ -48,7 +55,6 @@ const cloudCondition = document.getElementById("weatherText");
 const currentLow = document.getElementById("currentLow");
 const currentHigh = document.getElementById("currentHigh");
 const currentWindSpeed = document.getElementById("windSpeed");
-
 const mainWeatherIcon = document.getElementById("mainWeatherIcon");
 
 const renderWeatherIcon = (dataId, data, target) => {
