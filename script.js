@@ -1,20 +1,3 @@
-const cityInput = document.getElementById("input");
- 
-const submitForm = cityInput.addEventListener("keypress", (e) => {
-    if (e.key === 'Enter'){
-        let searchValue = cityInput.value.toLowerCase();
-        fetchCurrentWeather(searchValue)
-            .then ((data) => {
-                renderCurrentData(data);
-                renderWeatherIcon(data.weather[0].id, data);
-            });
-        fetchFutureWeather(searchValue)
-            .then ((data) => {renderFutureData(data)});
-        
-        cityInput.blur();
-    }
-});
-
 const fetchCurrentWeather = async function (location) {
     const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=' + location + '&units=imperial&appid=02cc3663df23cce74bc99a14efa05618');
     return await response.json();
@@ -24,6 +7,26 @@ const fetchFutureWeather = async function (location) {
     const response = await fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + location + '&units=imperial&appid=02cc3663df23cce74bc99a14efa05618');
     return await response.json();
 }
+
+const cityInput = document.getElementById("input");
+
+const submitForm = cityInput.addEventListener("keypress", (e) => {
+    if (e.key === 'Enter'){
+        let searchValue = cityInput.value.toLowerCase();
+        fetchCurrentWeather(searchValue)
+            .then ((data) => {
+                renderCurrentData(data);
+                renderWeatherIcon(data.weather[0].id, data, mainWeatherIcon);
+            });
+        fetchFutureWeather(searchValue)
+            .then ((data) => {
+                renderFutureData(data);
+                console.log(data);
+            });
+        
+        cityInput.blur();
+    }
+});
 
 const renderCurrentData = (data) => {
     cityInput.value = data.name;
@@ -48,34 +51,33 @@ const currentWindSpeed = document.getElementById("windSpeed");
 
 const mainWeatherIcon = document.getElementById("mainWeatherIcon");
 
-const renderWeatherIcon = (dataId, data) => {
-    console.log(dataId);
+const renderWeatherIcon = (dataId, data, target) => {
     if (199 < dataId && dataId < 300){
-        mainWeatherIcon.src = 'SVG/lightning.svg';
+        target.src = 'SVG/lightning.svg';
     }
     else if ((299 < dataId && dataId < 400) || (499 < dataId && dataId < 600)){
-        mainWeatherIcon.src = 'SVG/rainy.svg';
+        target.src = 'SVG/rainy.svg';
     }
     else if (599 < dataId && dataId < 700){
-        mainWeatherIcon.src = 'SVG/snow.svg';
+        target.src = 'SVG/snow.svg';
     }
     else if (699 < dataId && dataId < 800){
-        mainWeatherIcon.src = 'mist.svg';
+        target.src = 'SVG/mist.svg';
     }
     else if (dataId === 800 && data.sys.sunrise < data.dt && data.dt < data.sys.sunset){
-        mainWeatherIcon.src = 'SVG/sun.svg';
+        target.src = 'SVG/sun.svg';
     }
     else if (dataId === 800){
-        mainWeatherIcon.src = 'SVG/moon.svg';
+        target.src = 'SVG/moon.svg';
     }
     else if (800 < dataId && dataId < 803 && data.sys.sunrise < data.dt && data.dt < data.sys.sunset){
-        mainWeatherIcon.src = 'SVG/cloudy-day.svg';
+        target.src = 'SVG/cloudy-day.svg';
     }
     else if (802 < dataId && dataId < 805 && data.sys.sunrise < data.dt && data.dt < data.sys.sunset){
-        mainWeatherIcon.src = 'SVG/cloudy.svg';
+        target.src = 'SVG/cloudy.svg';
     }
     else {
-        mainWeatherIcon.src = 'SVG/cloudy-night.svg';
+        target.src = 'SVG/cloudy-night.svg';
     };
 };
 
