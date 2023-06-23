@@ -2,7 +2,7 @@
     border-style: hidden;
     border-width: 1px;
     border-color: black;
-    margin: 10px;
+    margin: 0.8vmin;
 }
 
 body {
@@ -42,8 +42,6 @@ body {
 }
 
 #bodyHeader {
-    margin-top: 2vmin;
-    margin-bottom: 40px;
     margin-right: -0.7em;
     font-size: 5vmin;
     font-weight: bold;
@@ -168,6 +166,7 @@ body {
 }
 
 .futureDiv div {
+    width: 8vmin;
     display: flex;
     flex-direction: column;
     align-items: center;
