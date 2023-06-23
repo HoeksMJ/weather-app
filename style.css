@@ -1,5 +1,5 @@
 * {
-    border-style: hidden;
+    border-style: solid;
     border-width: 1px;
     border-color: black;
     margin: 10px;
@@ -129,9 +129,15 @@ body {
 
 .buttonDiv {
     display: flex;
-    width: 100%;
+    width: 95%;
     font-size: 1.5vmin;
     justify-content: flex-start;
+}
+
+.buttonDiv div {
+    border-style: solid;
+    border-color: #f1dfc59a;
+    padding: 5px;
 }
 
 .futureDiv {
@@ -145,4 +151,5 @@ body {
 .futureDiv div {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
