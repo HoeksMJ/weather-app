@@ -17,10 +17,12 @@ const submitForm = cityInput.addEventListener("keypress", (e) => {
             .then ((data) => {
                 renderCurrentData(data);
                 renderWeatherIcon(data.weather[0].id, data, mainWeatherIcon);
+                console.log(data);
             });
         fetchFutureWeather(searchValue)
             .then ((data) => {
                 renderFutureData(data);
+                renderHourlyTime(data);
                 renderHourlyTemp(data);
                 console.log(data);
             });
@@ -40,6 +42,28 @@ const renderCurrentData = (data) => {
 
 const renderFutureData = (data) => {
     
+}
+
+renderHourlyTime = (data) => {
+    for (let i = 0; i < 7; i++){
+        let epochTime = ((data.list[i].dt + 18000 + data.city.timezone)*1000);
+        let listedDate = new Date(epochTime);
+        let hour = listedDate.getHours();
+        let futureHourlyTime = document.getElementById(`weatherDiv${i}`).children[0];
+        if (hour === 12){
+            futureHourlyTime.innerHTML = hour + 'pm';
+        }
+        else if (hour === 0){
+            futureHourlyTime.innerHTML = '12am';
+        }
+        else if (hour < 12){
+            futureHourlyTime.innerHTML = hour + 'am';
+        }
+        else {
+            futureHourlyTime.innerHTML = hour%12 + 'pm';
+        };
+    }
+
 }
 
 const renderHourlyTemp = (data) => {
@@ -86,27 +110,3 @@ const renderWeatherIcon = (dataId, data, target) => {
         target.src = 'SVG/cloudy-night.svg';
     };
 };
-
-
-
-
-
-
-
-
-async function fetchDummy() {
-    const response = await fetch('https://api.openweathermap.org/data/2.5/forecast?q=tyler&units=imperial&appid=02cc3663df23cce74bc99a14efa05618');
-    const data = await response.json();
-    console.log(data);
-}
-
-fetchDummy();
-
-async function fetchDummyTwo() {
-    const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=tyler&units=imperial&appid=02cc3663df23cce74bc99a14efa05618');
-    const data = await response.json();
-    console.log(data);
-}
-
-fetchDummyTwo();
-
