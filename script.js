@@ -12,18 +12,24 @@ const cityInput = document.getElementById("input");
 
 const submitForm = cityInput.addEventListener("keypress", (e) => {
     if (e.key === 'Enter'){
+        let sunrise;
+        let sunset;
         let searchValue = cityInput.value.toLowerCase();
         fetchCurrentWeather(searchValue)
             .then ((data) => {
+                sunrise = data.sys.sunrise;
+                sunset = data.sys.sunset;
                 renderCurrentData(data);
-                renderWeatherIcon(data.weather[0].id, data, mainWeatherIcon);
+                renderWeatherIcon(data.weather[0].id, data.dt, sunrise, sunset, mainWeatherIcon);
                 console.log(data);
             });
         fetchFutureWeather(searchValue)
             .then ((data) => {
-                renderFutureData(data);
                 renderHourlyTime(data);
                 renderHourlyTemp(data);
+                for (let i = 0; i < 7; i++){
+                    renderWeatherIcon(data.list[i].weather[0].id, data.list[i].dt, sunrise, sunset, document.getElementById(`weatherDiv${i}`).children[1]);
+                }
                 console.log(data);
             });
         
@@ -40,11 +46,7 @@ const renderCurrentData = (data) => {
     currentWindSpeed.innerHTML = Math.round(10*data.wind.speed)/10 + ' mph';
 }
 
-const renderFutureData = (data) => {
-    
-}
-
-renderHourlyTime = (data) => {
+const renderHourlyTime = (data) => {
     for (let i = 0; i < 7; i++){
         let epochTime = ((data.list[i].dt + 18000 + data.city.timezone)*1000);
         let listedDate = new Date(epochTime);
@@ -81,7 +83,7 @@ const currentHigh = document.getElementById("currentHigh");
 const currentWindSpeed = document.getElementById("windSpeed");
 const mainWeatherIcon = document.getElementById("mainWeatherIcon");
 
-const renderWeatherIcon = (dataId, data, target) => {
+const renderWeatherIcon = (dataId, time, sunrise, sunset, target) => {
     if (199 < dataId && dataId < 300){
         target.src = 'SVG/lightning.svg';
     }
@@ -94,16 +96,16 @@ const renderWeatherIcon = (dataId, data, target) => {
     else if (699 < dataId && dataId < 800){
         target.src = 'SVG/mist.svg';
     }
-    else if (dataId === 800 && data.sys.sunrise < data.dt && data.dt < data.sys.sunset){
+    else if (dataId === 800 && sunrise < time && time < sunset){
         target.src = 'SVG/sun.svg';
     }
     else if (dataId === 800){
         target.src = 'SVG/moon.svg';
     }
-    else if (800 < dataId && dataId < 803 && data.sys.sunrise < data.dt && data.dt < data.sys.sunset){
+    else if (800 < dataId && dataId < 803 && sunrise < time && time < sunset){
         target.src = 'SVG/cloudy-day.svg';
     }
-    else if (802 < dataId && dataId < 805 && data.sys.sunrise < data.dt && data.dt < data.sys.sunset){
+    else if (802 < dataId && dataId < 805 && sunrise < time && time < sunset){
         target.src = 'SVG/cloudy.svg';
     }
     else {
