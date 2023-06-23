@@ -32,7 +32,6 @@ const submitForm = cityInput.addEventListener("keypress", (e) => {
                 }
                 console.log(data);
             });
-        
         cityInput.blur();
     }
 });
