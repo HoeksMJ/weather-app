@@ -3,6 +3,7 @@
     border-width: 1px;
     border-color: black;
     margin: 0.8vmin;
+    transition: 1s;
 }
 
 body {
@@ -19,6 +20,7 @@ body {
     height: 100vh;
     font-family: sans-serif;
     color:#f1dfc5;
+    overflow: hidden;
 }
 
 @keyframes gradient {
@@ -38,15 +40,14 @@ body {
     flex-direction: column;
     align-items: center;
     width: 80vw;
-    height: 100vh;
+    height: 90vh;
 }
 
 #bodyHeader {
-    margin-right: -0.7em;
+    margin-right: -0.8em;
     font-size: 5vmin;
     font-weight: bold;
-    letter-spacing: 0.7em;
-    transition: 4s;
+    letter-spacing: 0.8em;
 }
 
 #bodyHeader:hover {
@@ -81,6 +82,10 @@ body {
     margin-bottom: 0;
     letter-spacing: 0.3em;
     margin-right: -0.2em;
+}
+
+#input::placeholder{
+    color: #f1dfc560;
 }
 
 #input:focus {
@@ -147,6 +152,7 @@ body {
     width: 95%;
     font-size: 1.5vmin;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .buttonDiv div {
@@ -155,6 +161,19 @@ body {
     padding: 0.3em 0.3em 0.3em 0.5em;
     letter-spacing: 0.2em;
     text-align: center;
+}
+
+.buttonDiv p {
+    width: 18em;
+    position: absolute;
+    text-align: right;
+    padding: 0.9em;
+    opacity: 0;
+    letter-spacing: 0.2em;
+}
+
+.buttonDiv p:hover {
+    opacity: 100;
 }
 
 .futureDiv {
